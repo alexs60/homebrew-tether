@@ -2,7 +2,7 @@
 #
 # This file is the canonical template that ships in the main repository.
 # The release workflow (.github/workflows/release.yml) substitutes the
-# 0.0.2, d03f0f71d01b9e0e01c83fabe3d894a888d4000b3d03ee49877ba9c19b229fb3, 3e6b1e226e0176f6087eff35cf708e98ba292be5f1502b4d53441ffb754098f8, and alexs60/safe-sde placeholders at
+# 0.0.3, 1312c2886c9007911792dbeec7cd2f9dae1f94b9179b95a5bea9726ce20292d9, 2a747fc956d4da2d42a94acde7b08693331b58298d27e88be89c8f6fa6a4af2c, and alexs60/safe-sde placeholders at
 # release time and commits the rendered copy into the homebrew-sde tap repo.
 #
 # alexs60/safe-sde is the full "owner/repo" slug of the source repository (from
@@ -30,12 +30,12 @@ class Sde < Formula
   # scanned out of the ".../download/vX.Y.Z/..." URL path.
   if Hardware::CPU.arm?
     # arm64 (Apple Silicon)
-    url "https://github.com/alexs60/safe-sde/releases/download/v0.0.2/sde-darwin-arm64.tar.gz"
-    sha256 "d03f0f71d01b9e0e01c83fabe3d894a888d4000b3d03ee49877ba9c19b229fb3"
+    url "https://github.com/alexs60/safe-sde/releases/download/v0.0.3/sde-darwin-arm64.tar.gz"
+    sha256 "1312c2886c9007911792dbeec7cd2f9dae1f94b9179b95a5bea9726ce20292d9"
   else
     # amd64 (Intel Mac)
-    url "https://github.com/alexs60/safe-sde/releases/download/v0.0.2/sde-darwin-amd64.tar.gz"
-    sha256 "3e6b1e226e0176f6087eff35cf708e98ba292be5f1502b4d53441ffb754098f8"
+    url "https://github.com/alexs60/safe-sde/releases/download/v0.0.3/sde-darwin-amd64.tar.gz"
+    sha256 "2a747fc956d4da2d42a94acde7b08693331b58298d27e88be89c8f6fa6a4af2c"
   end
 
   # macOS only — the sde binary is a darwin mach-o executable.
