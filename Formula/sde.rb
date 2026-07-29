@@ -2,7 +2,7 @@
 #
 # This file is the canonical template that ships in the main repository.
 # The release workflow (.github/workflows/release.yml) substitutes the
-# 0.0.1, 04036225fa659a97cd3ba12a0c5e5d750d17da358027df7350859d5720bc08d8, f957d8ee8c80a29d39cb70b5f04047ea2121e96e296280ed27661b938a7a82ac, and alexs60/safe-sde placeholders at
+# 0.0.2, d03f0f71d01b9e0e01c83fabe3d894a888d4000b3d03ee49877ba9c19b229fb3, 3e6b1e226e0176f6087eff35cf708e98ba292be5f1502b4d53441ffb754098f8, and alexs60/safe-sde placeholders at
 # release time and commits the rendered copy into the homebrew-sde tap repo.
 #
 # alexs60/safe-sde is the full "owner/repo" slug of the source repository (from
@@ -12,12 +12,13 @@
 # To install from the tap (once a release has been published):
 #
 #   brew tap alexs60/sde
+#   brew trust alexs60/sde   # required: Homebrew blocks untrusted third-party taps
 #   brew install sde
 
 class Sde < Formula
   desc "Role-separated container isolation for AI-assisted development"
   homepage "https://github.com/alexs60/safe-sde"
-  license "MIT"
+  license "GPL-3.0-or-later"
 
   # Architecture-specific release tarballs.
   #
@@ -29,12 +30,12 @@ class Sde < Formula
   # scanned out of the ".../download/vX.Y.Z/..." URL path.
   if Hardware::CPU.arm?
     # arm64 (Apple Silicon)
-    url "https://github.com/alexs60/safe-sde/releases/download/v0.0.1/sde-darwin-arm64.tar.gz"
-    sha256 "04036225fa659a97cd3ba12a0c5e5d750d17da358027df7350859d5720bc08d8"
+    url "https://github.com/alexs60/safe-sde/releases/download/v0.0.2/sde-darwin-arm64.tar.gz"
+    sha256 "d03f0f71d01b9e0e01c83fabe3d894a888d4000b3d03ee49877ba9c19b229fb3"
   else
     # amd64 (Intel Mac)
-    url "https://github.com/alexs60/safe-sde/releases/download/v0.0.1/sde-darwin-amd64.tar.gz"
-    sha256 "f957d8ee8c80a29d39cb70b5f04047ea2121e96e296280ed27661b938a7a82ac"
+    url "https://github.com/alexs60/safe-sde/releases/download/v0.0.2/sde-darwin-amd64.tar.gz"
+    sha256 "3e6b1e226e0176f6087eff35cf708e98ba292be5f1502b4d53441ffb754098f8"
   end
 
   # macOS only — the sde binary is a darwin mach-o executable.
@@ -56,6 +57,12 @@ class Sde < Formula
     # (../libexec) — see HelperBinaryPath in cmd/sde/deps.go.
     libexec.install "sde-credential-helper-linux-arm64",
                     "sde-credential-helper-linux-amd64"
+
+    # sde is GPL-3.0-or-later, so the licence text travels with the binary.
+    # `pkgshare` rather than `prefix` because Homebrew's `brew style` prefers
+    # documentation under share/<name>; the tarball carries both files (see
+    # the packaging steps in .github/workflows/release.yml).
+    pkgshare.install "LICENSE", "COPYRIGHT"
   end
 
   def caveats
