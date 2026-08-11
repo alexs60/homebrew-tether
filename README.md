@@ -3,16 +3,17 @@
 Homebrew tap for [tether](https://github.com/alexs60/tether) — role-separated
 container isolation for AI-assisted development on macOS.
 
-> **This tap has no formula yet.** `Formula/tether.rb` is published by the
-> v0.1.0 release, which has not been tagged. The commands below will not work
-> until then.
-
 ## Install
 
 ```sh
 brew tap alexs60/tether
+brew trust alexs60/tether
 brew install tether
 ```
+
+`brew trust` is not optional: since Homebrew 6.0 a third-party tap is
+`Untrusted` by default and `brew install` refuses to load its formulae until you
+trust it. Skipping it makes the install fail rather than fall back.
 
 Then verify with `tether version` and `tether doctor`.
 
@@ -25,12 +26,13 @@ name, so drop the old tap before adding the new one:
 brew uninstall sde
 brew untap alexs60/sde
 brew tap alexs60/tether
+brew trust alexs60/tether
 brew install tether
 ```
 
-The old `Formula/sde.rb` has been removed. It was already unusable: its download
-URLs point at release assets in a repository that is not public, so
-`brew install sde` returned 404 regardless.
+The old `Formula/sde.rb` has been removed, and the `ghcr.io/alexs60/sde/*` images
+it relied on are deleted, so no v0.0.x release can start a workspace any more.
+Upgrading is the only path forward; there is nothing to pin to.
 
 The rename is a hard break: state moves from `~/.sde/` to `~/.tether/` and
 nothing migrates automatically. Run `sde nuke` with the *old* binary before
